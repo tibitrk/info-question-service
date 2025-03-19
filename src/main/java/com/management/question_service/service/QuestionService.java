@@ -20,12 +20,21 @@ public class QuestionService {
         try {
             return new ResponseEntity<>(questionRepository.findAll(), HttpStatus.OK);
         }catch (Exception e) {
-            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
+            e.printStackTrace();
         }
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
     }
 
     public ResponseEntity<String> addQuestion(Question question){
         questionRepository.save(question);
         return new ResponseEntity<>("success", HttpStatus.CREATED);
+    }
+    public ResponseEntity<List<Question>> getQuestionsByCategory(String category){
+        try {
+            return new ResponseEntity<>(questionRepository.findByCategory(category),HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
     }
 }

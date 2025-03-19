@@ -23,4 +23,8 @@ public class QuestionController {
     public ResponseEntity<String> saveQuestion(@RequestBody Question question){
         return questionService.addQuestion(question);
     }
+    @GetMapping("category/{category}")
+    public ResponseEntity<List<Question>> getQuestionsByCategory(@PathVariable String category){
+        return questionService.getQuestionsByCategory(category);
+    }
 }
