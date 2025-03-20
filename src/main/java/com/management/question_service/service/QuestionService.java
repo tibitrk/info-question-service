@@ -2,6 +2,7 @@ package com.management.question_service.service;
 
 import com.management.question_service.model.Question;
 import com.management.question_service.model.QuestionWrapper;
+import com.management.question_service.model.Response;
 import com.management.question_service.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -65,4 +66,16 @@ public class QuestionService {
         }
         return new ResponseEntity<>(wrappers,HttpStatus.OK);
     }
+    public ResponseEntity<Integer> getScore(List<Response> responses){
+
+        int right=0;
+
+        for(Response response: responses){
+            Question question = questionRepository.findById(response.getId()).get();
+            if(response.getResponse().equals(question.getRightAnswer()))
+                right++;
+            }
+            return new ResponseEntity<>(right,HttpStatus.OK);
+        }
 }
+
